@@ -58,10 +58,10 @@ static void processRequest(Request *request)
 			  << " bytesused: ";
 
 		unsigned int nplane = 0;
-		for (const FrameMetadata::Plane &plane : metadata.planes)
+		for (const FrameMetadata::Plane &plane : metadata.planes())
 		{
 			std::cout << plane.bytesused;
-			if (++nplane < metadata.planes.size())
+			if (++nplane < metadata.planes().size())
 				std::cout << "/";
 		}
 
@@ -100,20 +100,21 @@ std::string cameraName(Camera *camera)
 	const ControlList &props = camera->properties();
 	std::string name;
 
-	switch (props.get(properties::Location)) {
-	case properties::CameraLocationFront:
-		name = "Internal front camera";
-		break;
-	case properties::CameraLocationBack:
-		name = "Internal back camera";
-		break;
-	case properties::CameraLocationExternal:
-		name = "External camera";
-		if (props.contains(properties::Model))
-			name += " '" + props.get(properties::Model) + "'";
-		break;
-	}
-
+	// switch (props.get(properties::Location)) {
+	// case properties::CameraLocationFront:
+	// 	name = "Internal front camera";
+	// 	break;
+	// case properties::CameraLocationBack:
+	// 	name = "Internal back camera";
+	// 	break;
+	// case properties::CameraLocationExternal:
+	// 	name = "External camera";
+	// 	if (props.contains(properties::Model))
+	// 		name += " '" + props.get(properties::Model) + "'";
+	// 	break;
+	// }
+	//// not phone, i dont care
+	name = props.get(properties::Model).value();
 	name += " (" + camera->id() + ")";
 
 	return name;

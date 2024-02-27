@@ -1,21 +1,22 @@
 project('simple-cam', 'c', 'cpp',
 	default_options : [
-		'werror=true',
+		'werror=false',
 		'warning_level=2',
 		'cpp_std=c++17',
 	])
 
 # simple-cam.cpp is the fully commented application
 src_files = files([
-	'simple-cam.cpp',
-	'event_loop.cpp',
+	'test.cpp',
+#	'simple-cam.cpp',
+#	'event_loop.cpp',
 ])
 
 # Point your PKG_CONFIG_PATH environment variable to the
 # libcamera install path camera.pc file ($prefix/lib/pkgconfig/camera.pc)
 deps = [
-      dependency('camera', required : true),
-      dependency('libevent_pthreads'),
+      dependency('libcamera', required : true),
+#      dependency('libevent_pthreads'),
 ]
 
 cpp_arguments = [ '-Wno-unused-parameter', ]
